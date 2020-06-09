@@ -19,8 +19,29 @@ enum EnemyAround
 	GoHome,
 };
 
+// 頂点シェーダー
+extern const char* vsfilename[];
 
-class Enemy 
+// ピクセルシェーダー
+extern const char* psfilename[];
+
+class EnemyLoad {
+public:
+
+	CModel E_model;
+
+	void EnemyModelLoad()
+	{
+		E_model.InitToon("assets/wolf/Wolf.fbx", vsfilename, psfilename, "assets/wolf/textures/");
+	
+		// ASSIMPを使用したアニメーションの読み込み
+		E_model.LoadAnimation("assets/wolf/Wolf.fbx");
+	}
+
+};
+
+
+class Enemy :public EnemyLoad
 {
 private:
 	
@@ -28,7 +49,7 @@ private:
 	bool GotTarget;
 	XMFLOAT3 seangle;
 	
-	CModel			g_modelenemy;		// 敵モデル
+	//CModel*			g_modelenemy;		// 敵モデル
 	XMFLOAT4X4		g_mtxenemy;			// 敵の行列
 	XMFLOAT3        g_EnemyPos;
 	XMFLOAT3        EnemyPosFront;

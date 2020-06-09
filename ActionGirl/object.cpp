@@ -12,6 +12,8 @@
 #include"RenderToTexture.h"
 #include"UI.h"
 
+
+EnemyLoad EnemyModelLoad;
 Enemy g_enemy[ENEMYMAX];
 Enemy Boss;
 extern SCENE scene;
@@ -71,13 +73,17 @@ bool Object::Init(bool sts)
 
 	WriteOnConsole("ƒvƒŒƒCƒ„[‚ğ‰Šú‰»‚µ‚½\n");
 
-	
+
+	EnemyModelLoad.EnemyModelLoad();
+
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
 		g_enemy[i].Init();
 		g_enemy[i].InitEnemyStatus(g_enemypos[i], 100, 20, 50/*,M_wolf*/);
 
 	}
+
+
 
 	Boss.Init();
 	Boss.InitBossStatus(BossPos, 500, 30, 100);
@@ -104,12 +110,12 @@ void Object::Updata() {
 
 	Player::GetInstance().Updata();
 
-	for (int i = 0; i < ENEMYMAX; i++)
-	{
-		g_enemy[i].UpData();		
-	}
+	//for (int i = 0; i < ENEMYMAX; i++)
+	//{
+	//	g_enemy[i].UpData();		
+	//}
 
-	Boss.UpDataBoss();
+	//Boss.UpDataBoss();
 
 	//if (CDirectInput::GetInstance().CheckKeyBuffer(DIK_F1)) {
 	//	Cmode = LookPlayer;
