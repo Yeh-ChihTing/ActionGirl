@@ -522,7 +522,7 @@ void Player::HitByEnemy()
 bool Player::GetPlayerGround()
 {
 	XMFLOAT3 ans;
-	int cnt;
+	//int cnt;
 	bool sts = SearchAllSurface(g_PlayerPos, ans);
 	
 	if (sts) 

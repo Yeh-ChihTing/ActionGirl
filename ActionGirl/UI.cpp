@@ -33,21 +33,27 @@ bool UI::InitUI()
 	g_pface.Init("assets/pic/PlayerFace.png");
 	g_pLevel.Init("assets/pic/LV.png");
 
+
+
 	for (int i = 0; i < 2; i++) 
 	{
 		g_pLevelNum[i].Init("assets/pic/numbertexture.png");
 	}
 
+	HPTex.Init("assets/pic/blood.png");
+
 	for (int i = 0; i < 100; i++) 
 	{
-		g_pHP[i].Init("assets/pic/blood.png");
-		g_eHP[i].Init("assets/pic/blood.png");
-		g_pEXP[i].Init("assets/pic/EXP.png");
+		g_pHP[i]= HPTex;
+		g_eHP[i]= HPTex;
+		g_pEXP[i]= HPTex;
 	}
+
+	FrameTex.Init("assets/pic/bloodframe.png");
 
 	for (int i = 0; i < 3; i++)
 	{
-		g_Frame[i].Init("assets/pic/bloodframe.png");
+		g_Frame[i]= FrameTex;
 	}
 
 	g_WolfFace.Init("assets/pic/wolfface.png");

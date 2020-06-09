@@ -35,13 +35,15 @@ public:
 		E_model.InitToon("assets/wolf/Wolf.fbx", vsfilename, psfilename, "assets/wolf/textures/");
 	
 		// ASSIMPを使用したアニメーションの読み込み
-		E_model.LoadAnimation("assets/wolf/Wolf.fbx");
+		//E_model.LoadAnimation("assets/wolf/Wolf.fbx");
 	}
+
+
 
 };
 
 
-class Enemy :public EnemyLoad
+class Enemy 
 {
 private:
 	
@@ -49,7 +51,7 @@ private:
 	bool GotTarget;
 	XMFLOAT3 seangle;
 	
-	//CModel*			g_modelenemy;		// 敵モデル
+	CModel*			g_modelenemy;		// 敵モデル
 	XMFLOAT4X4		g_mtxenemy;			// 敵の行列
 	XMFLOAT3        g_EnemyPos;
 	XMFLOAT3        EnemyPosFront;
@@ -105,7 +107,7 @@ public:
 	
 	ENEMYACTIVE EnemyActive;
 		
-	bool Init();
+	bool Init(CModel* cmodel);
 	void InitEnemyStatus(XMFLOAT3 enemypos, int HP, int Attack, int EXP/*, CModel model*/);
 	void UpData();
 	void UpDataBoss();

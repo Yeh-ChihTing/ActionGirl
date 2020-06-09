@@ -78,14 +78,14 @@ bool Object::Init(bool sts)
 
 	for (int i = 0; i < ENEMYMAX; i++)
 	{
-		g_enemy[i].Init();
+		g_enemy[i].Init(&EnemyModelLoad.E_model);
 		g_enemy[i].InitEnemyStatus(g_enemypos[i], 100, 20, 50/*,M_wolf*/);
 
 	}
 
 
 
-	Boss.Init();
+	Boss.Init(&EnemyModelLoad.E_model);
 	Boss.InitBossStatus(BossPos, 500, 30, 100);
 
 	WriteOnConsole("“G‚ð‰Šú‰»‚µ‚½\n");
@@ -110,12 +110,12 @@ void Object::Updata() {
 
 	Player::GetInstance().Updata();
 
-	//for (int i = 0; i < ENEMYMAX; i++)
-	//{
-	//	g_enemy[i].UpData();		
-	//}
+	for (int i = 0; i < ENEMYMAX; i++)
+	{
+		g_enemy[i].UpData();		
+	}
 
-	//Boss.UpDataBoss();
+	Boss.UpDataBoss();
 
 	//if (CDirectInput::GetInstance().CheckKeyBuffer(DIK_F1)) {
 	//	Cmode = LookPlayer;

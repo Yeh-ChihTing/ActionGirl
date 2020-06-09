@@ -30,7 +30,8 @@ private:
 	C2DQuadTex		g_WolfFace;
 	C2DQuadTex		g_eHP[100];
 
-
+	C2DQuadTex      HPTex;
+	C2DQuadTex      FrameTex;
 	
 
 	CBillBoard      g_eDamegePic;

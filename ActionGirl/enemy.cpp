@@ -16,11 +16,11 @@
 
 
 
-bool Enemy::Init() {
+bool Enemy::Init(CModel* cmodel) {
 	
 	static bool sts;
 
-	/*g_modelenemy = &*/E_model;
+	g_modelenemy = cmodel;
 	/*sts = g_modelenemy.Init("assets/wolf/Wolf.fbx", "shader/vsoneskin.hlsl", "shader/psmira.hlsl",
 		"assets/wolf/textures/");*/
 
@@ -32,18 +32,18 @@ bool Enemy::Init() {
 	
 
 	// ASSIMPを使用したアニメーションの読み込み
-	/*sts = g_modelenemy->LoadAnimation("assets/wolf/Wolf.fbx");
+	sts = g_modelenemy->LoadAnimation("assets/wolf/Wolf.fbx");
 	if (!sts) {
 		MessageBox(NULL, "load enemy animation error", "error", MB_OK);
 		return false;
-	}*/
+	}
 
 	Billboarinit(g_eMiniMapPos, 1.5f, 1.5f, 0, 1, 0, 1, "assets/pic/MiniMapWolf.png");
 
 	Billboarinit(BossMiniMapPos, 1.5f, 1.5f, 0, 1, 0, 1, "assets/pic/mao.png");
 
 	DX11MtxIdentity(g_mtxenemy);
-	E_model.GetOBBList(g_enemyobblist);
+	g_modelenemy->GetOBBList(g_enemyobblist);
 	
 	return true;
 }
@@ -81,7 +81,7 @@ void Enemy::UpData()
 	//DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, 30.0f);
 	DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, EnemySize);
 
-	E_model. Update(animno,			// アニメーション番号
+	g_modelenemy-> Update(animno,			// アニメーション番号
 		g_mtxenemy, 1);				// モデル表示位置と姿勢
 
 
@@ -209,7 +209,7 @@ void Enemy::UpDataBoss()
 	//DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, 30.0f);
 	DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, EnemySize);
 
-	E_model.Update(animno,			// アニメーション番号
+	g_modelenemy->Update(animno,			// アニメーション番号
 		g_mtxenemy, 1);				// モデル表示位置と姿勢
 
 
@@ -338,12 +338,12 @@ void Enemy::Render(bool ObbOn, bool LineOn)
 	if(EnemyActive!=DieP && !Die())
 	{
 		//g_modelenemy.Draw(g_mtxenemy, LineOn);
-		E_model.DrawToon(g_mtxenemy, vsfilename, psfilename, LineOn);
+		g_modelenemy->DrawToon(g_mtxenemy, vsfilename, psfilename, LineOn);
 	}
 	
 	if (ObbOn)
 	{
-		E_model.DrawOBB();
+		g_modelenemy->DrawOBB();
 	}
 }
 
@@ -798,5 +798,5 @@ void Enemy::ImGuiRender()
 
 void Enemy::EnemyExit() 
 {
-	E_model.Uninit(true);
+	g_modelenemy->Uninit(true);
 }
