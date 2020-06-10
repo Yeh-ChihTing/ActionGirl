@@ -32,6 +32,7 @@ private:
 
 	C2DQuadTex      HPTex;
 	C2DQuadTex      FrameTex;
+	C2DQuadTex      EXETex;
 	
 
 	CBillBoard      g_eDamegePic;

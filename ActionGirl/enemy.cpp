@@ -21,15 +21,6 @@ bool Enemy::Init(CModel* cmodel) {
 	static bool sts;
 
 	g_modelenemy = cmodel;
-	/*sts = g_modelenemy.Init("assets/wolf/Wolf.fbx", "shader/vsoneskin.hlsl", "shader/psmira.hlsl",
-		"assets/wolf/textures/");*/
-
-	//sts = g_modelenemy->InitToon("assets/wolf/Wolf.fbx", vsfilename, psfilename,"assets/wolf/textures/");
-	//if (!sts) {
-	//	MessageBox(NULL, "load enemy model error", "error", MB_OK);
-	//	return false;
-	//}
-	
 
 	// ASSIMPを使用したアニメーションの読み込み
 	sts = g_modelenemy->LoadAnimation("assets/wolf/Wolf.fbx");
@@ -78,14 +69,10 @@ void Enemy::UpData()
 {
 	seangle = angle;
 	
-	//DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, 30.0f);
 	DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, EnemySize);
 
 	g_modelenemy-> Update(animno,			// アニメーション番号
 		g_mtxenemy, 1);				// モデル表示位置と姿勢
-
-
-	//GetLenToTarget(g_EnemyPos, Player::GetInstance().GetPlayerPos());
 	
 
 	if (EnemyStatus.HP >= 0)
@@ -193,10 +180,6 @@ void Enemy::UpData()
 		EnemyStatus.HP = 0;
 	}
 	
-	//if (CDirectInput::GetInstance().CheckKeyBuffer(DIK_D))
-	//{
-	//	EnemyStatus.HP = 0;
-	//}
 
 	g_eMiniMapPos.SetPosition(g_mtxenemy._41, 15, g_mtxenemy._43);
 
@@ -206,14 +189,11 @@ void Enemy::UpDataBoss()
 {
 	seangle = angle;
 
-	//DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, 30.0f);
+
 	DX11MakeWorldMatrix(g_mtxenemy, angle, g_EnemyPos, EnemySize);
 
 	g_modelenemy->Update(animno,			// アニメーション番号
 		g_mtxenemy, 1);				// モデル表示位置と姿勢
-
-
-	//GetLenToTarget(g_EnemyPos, Player::GetInstance().GetPlayerPos());
 
 
 	if (EnemyStatus.HP >= 0)
@@ -334,10 +314,9 @@ void Enemy::ReBornNow()
 void Enemy::Render(bool ObbOn, bool LineOn)
 {
 	
-	//if (EnemyStatus.HP > 0)
 	if(EnemyActive!=DieP && !Die())
 	{
-		//g_modelenemy.Draw(g_mtxenemy, LineOn);
+
 		g_modelenemy->DrawToon(g_mtxenemy, vsfilename, psfilename, LineOn);
 	}
 	
@@ -419,7 +398,6 @@ float Enemy::GetAngleToTarget(XMFLOAT3& mypos, XMFLOAT3 Targetpos)
 	TurnAngle = atan2(Z, X);
 	
 	return  Rturn = -(TurnAngle * 180 / PI) - 90;
-	//return  Rturn = -(TurnAngle * 180/ PI);
 }
 
 bool Enemy::GetLenToTarget(XMFLOAT3& mypos, XMFLOAT3 Targetpos)
@@ -447,27 +425,13 @@ float Enemy::GetUpAngle(XMFLOAT3& mypos, XMFLOAT3& frontpos)
 	return  UpAngle = tan(Y / len) * 180 / PI;
 }
 
-//float Enemy::GetSideAngle(XMFLOAT3& mypos, XMFLOAT3& Lside, XMFLOAT3& Rside) 
-//{
-//	Lside.x = g_mtxenemy._41 - g_mtxenemy._11;
-//	Lside.z= g_mtxenemy._43 - g_mtxenemy._13;
-//
-//	float X,Y,Z, len;
-//
-//	X = Lside.x - mypos.x;
-//	Y = Lside.y - mypos.y;
-//	Z = Lside.z - mypos.z;
-//	len = sqrt(X * X + Y * Y + Z * Z);
-//		
-//	return SideAngle =  tan(Y / len) * 180 / PI;
-//}
 
-void Enemy::GetGround() 
+void Enemy::GetGround()
 {
 	XMFLOAT3 ans;
 
 	bool sts = SearchAllSurface(g_EnemyPos, ans);
-	if (sts) 
+	if (sts)
 	{
 		//GoDown = false;
 		//ans.y += 0.1f;			//
@@ -476,7 +440,7 @@ void Enemy::GetGround()
 	}
 
 	sts = SearchAllSurface(EnemyPosFront, ans);
-	if (sts) 
+	if (sts)
 	{
 		//GoDown = false;
 		//ans.y += 0.1f;			// 
@@ -484,13 +448,6 @@ void Enemy::GetGround()
 		EnemyPosFront.y = ans.y;
 	}
 
-	//sts = SearchAllSurface(EnemyPosLSide, ans);
-	//if (sts)
-	//{
-	//	//GoDown = false;
-	//	ans.y += 0.1f;			// 
-	//	EnemyPosLSide.y = ans.y;
-	//}
 }
 
 bool Enemy::Hit(std::vector<COBB*> a, std::vector<COBB*> b) {
@@ -506,14 +463,11 @@ bool Enemy::Hit(std::vector<COBB*> a, std::vector<COBB*> b) {
 		}
 
 		if (sts)
-		{
-			//ImGui::Text("%s", Attacker->GetName().c_str());
-			//Attacker->SetColor(XMFLOAT4(1.0f, 0.0f, 0.0f, 0.3f));
+		{			
 			return true;
 		}
 		else
-		{
-			//Attacker->SetColor(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.3f));
+		{		
 			return false;
 		}
 	}
@@ -534,13 +488,10 @@ bool Enemy::Hitbysword(std::vector<COBB*> a, std::vector<COBB*> b) {
 
 		if (sts)
 		{
-			//ImGui::Text("%s", Attacker->GetName().c_str());
-			//Attacker->SetColor(XMFLOAT4(1.0f, 0.0f, 0.0f, 0.3f));
 			return true;
 		}
 		else
 		{
-			//Attacker->SetColor(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.3f));
 			return false;
 		}
 	}
@@ -561,7 +512,6 @@ bool Enemy::CHit(XMFLOAT3& mypos, XMFLOAT3 targetpos, float myR, float tR)
 	{
 		return false;
 	}
-	/*(xc1 - xc2) ^ 2 + (yc1 - yc2) ^ 2 ≦(r1 + r2) ^ 2*/
 }
 
 bool Enemy::GetGopos(XMFLOAT3 nowpos,float Min,int Max) 
@@ -583,8 +533,6 @@ bool Enemy::GetGopos(XMFLOAT3 nowpos,float Min,int Max)
 	
 	if (sts)
 	{
-		//GoDown = false;
-		//ans.y += 0.1f;			//
 		ans.y += 0.0005f;
 		EnemyGoPos.y = ans.y;
 
@@ -753,7 +701,6 @@ void Enemy::ImGuiRender()
 	ImGui::Text("angleX:%.2f,angleY:%.2f,angleZ:%.2f", seangle.x, seangle.y, seangle.z);
 	ImGui::Text("Rturn:%.2f", Rturn);
 
-	//if (Hit(g_enemyobblist, Player::GetInstance().GetPlayerObblist())) 
 	if(CHit(g_EnemyPos, Player::GetInstance().GetPlayerPos(),8,25))
 	{
 		ImGui::Text("Hit:true");

@@ -43,27 +43,22 @@ XMFLOAT3 BossPos{ 6.0f,0.0f,35.0f };
 bool Object::Init(bool sts)
 {
 	
-
 	sts = g_Skydome.Init("assets/skydome/Skydome151003by.x", "shader/vs.fx", "shader/psskydome.fx",
 		"assets/skydome/");
-	//if (!sts) {
-	//	MessageBox(NULL, "load Skydome model error", "error", MB_OK);
-	//	return false;
-	//}
+	if (!sts) {
+		MessageBox(NULL, "load Skydome model error", "error", MB_OK);
+		return false;
+	}
 
 	WriteOnConsole("スカイドームを初期化した\n");
 
 
-
-	/*sts = g_ground.Init("assets/shima/shima_001.obj", "shader/vs.fx", "shader/ps.hlsl",
-		"assets/shima/");*/
-
 	sts = g_ground.InitToon("assets/shima/shima_001.obj", vs, ps,
 		"assets/shima/");
-	//if (!sts) {
-	//	MessageBox(NULL, "load ground model error", "error", MB_OK);
-	//	return false;
-	//}
+	if (!sts) {
+		MessageBox(NULL, "load ground model error", "error", MB_OK);
+		return false;
+	}
 	WriteOnConsole("地形を初期化した\n");
 
 	StageHitInit(&g_ground);
@@ -82,8 +77,6 @@ bool Object::Init(bool sts)
 		g_enemy[i].InitEnemyStatus(g_enemypos[i], 100, 20, 50/*,M_wolf*/);
 
 	}
-
-
 
 	Boss.Init(&EnemyModelLoad.E_model);
 	Boss.InitBossStatus(BossPos, 500, 30, 100);
@@ -144,20 +137,18 @@ void Object::Updata() {
 void Object::Render()
 {
 	if (scene != LOAD) 
-	{
-
-		Player::GetInstance().Render(OBBOn, false);
+	{		
 		// モデル描画		
-		//g_ground.Draw(g_mtxground, "shader/vs.fx", "shader/ps.hlsl", LineOn);
 		g_ground.DrawToon(g_mtxground,vs,ps, LineOn);	
 
 		g_Skydome.Draw(g_mtxskydome, "shader/vs.fx", "shader/psskydome.fx", false);
+
+		Player::GetInstance().Render(OBBOn, false);
 	}
 	
 	if (scene == GAME) 
 	{
 		
-		//Enemy::GetInstance().Render(OBBOn, false);
 		for (int i = 0; i < ENEMYMAX; i++)
 		{
 			g_enemy[i].Render(OBBOn, false);
@@ -174,8 +165,6 @@ void Object::Render()
 void Object::MiniMapRender()
 {
 	
-	//g_Skydome.Draw(g_mtxskydome, false);
-	//g_ground.Draw(g_mtxground, "shader/vs.fx", "shader/ps.hlsl",LineOn);
 	g_ground.DrawToon(g_mtxground, vs, ps, LineOn);
 
 	Player::GetInstance().RenderInMiniMap();
@@ -195,12 +184,12 @@ void Object::ObjectExit()
 {
 	Player::GetInstance().PlayerExit();
 
-	//for (int i = 0; i = ENEMYMAX; i++)
-	//{
-	//	g_enemy[i].EnemyExit();
-	//}
+	for (int i = 0; i = ENEMYMAX; i++)
+	{
+		g_enemy[i].EnemyExit();
+	}
 
-	//Boss.EnemyExit();
+	Boss.EnemyExit();
 
 	g_Skydome.Uninit(false);
 	g_ground.Uninit(false);
@@ -255,23 +244,7 @@ void Object::ImGuiRender()
 		ImGui::Text("%d Len:%.2f", i + 1, Player::GetInstance().GetTargetNum());
 
 	}
-	/*for (int i = 0; i < ENEMYMAX; i++) {
-		ImGui::Text("%dHP%.2f", i, g_enemy[i].GetEnemyHP());
 
-		if (g_enemy[i].GetDead()) 
-		{
-			ImGui::Text("DeadTRUE");
-		}
-		else{ ImGui::Text("DeadFalse"); }
-
-		if (g_enemy[i].Reborn())
-		{
-			ImGui::Text("RebornTRUE");
-		}
-		else { ImGui::Text("RebornFalse"); }
-
-		ImGui::Text("Cnt:%d", g_enemy[i].RebornCnt());
-	}*/
 	ImGui::Text("movemet%.2f", Player::GetInstance().getmovement());
 	
 	

@@ -120,10 +120,6 @@ public:
 	void ImGuiRender();
 	void EnemyExit();
 
-	/*static Enemy& GetInstance() {
-		static Enemy instance;
-		return instance;
-	}*/
 
 	const std::vector<COBB*>& GetEnemyObblist()const
 	{
@@ -169,16 +165,4 @@ public:
 		return LenToTarget;
 	}
 
-	//bool  GetDead()
-	//{
-	//	return Die();
-	//}
-
-	//int RebornCnt() {
-	//	return ReBornCnt;
-	//}
-	//bool Reborn() 
-	//{
-	//	return ReBorn;
-	//}
 };

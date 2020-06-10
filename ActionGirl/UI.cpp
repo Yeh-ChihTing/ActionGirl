@@ -41,12 +41,13 @@ bool UI::InitUI()
 	}
 
 	HPTex.Init("assets/pic/blood.png");
+	EXETex.Init("assets/pic/EXP.png");
 
 	for (int i = 0; i < 100; i++) 
 	{
 		g_pHP[i]= HPTex;
 		g_eHP[i]= HPTex;
-		g_pEXP[i]= HPTex;
+		g_pEXP[i]= EXETex;
 	}
 
 	FrameTex.Init("assets/pic/bloodframe.png");
@@ -58,8 +59,6 @@ bool UI::InitUI()
 
 	g_WolfFace.Init("assets/pic/wolfface.png");
 
-
-	//Billboarinit(g_eDamegePic, 50, 50, 0, 1, 0, 1, "assets/pic/kiri.png");
 	Billboarinit(g_eDamegePic, 0.8f, 0.8f, 0.0f, 1.0f, 0.0f, 1.0f, "assets/pic/kiri.png");
 
 	MiniMapRTT.Init("assets/pic/MIniMapFrame.png");
@@ -117,7 +116,6 @@ void  UI::UpdataUI()
 	attacking = Player::GetInstance().GetAttackFlag();
 	targetNum = Player::GetInstance().GetTargetNum();
 
-	//e_HP = Enemy::GetInstance().GetEnemyHP();
 	e_HP = g_enemy[targetNum].GetEnemyHP();
 	BossHP = Boss.GetEnemyHP();
 
@@ -125,7 +123,6 @@ void  UI::UpdataUI()
 	{
 		if (attacking)
 		{
-			// E_Mat = Enemy::GetInstance().GetEnemyMat();
 			E_Mat = g_enemy[targetNum].GetEnemyMat();
 			g_eDamegePic.SetPosition(E_Mat._41, E_Mat._42 + 0.4f, E_Mat._43);
 		}
@@ -135,7 +132,6 @@ void  UI::UpdataUI()
 	{
 		if (attacking)
 		{
-			// E_Mat = Enemy::GetInstance().GetEnemyMat();
 			E_Mat = Boss.GetEnemyMat();
 			g_eDamegePic.SetPosition(E_Mat._41, E_Mat._42 + 0.4f, E_Mat._43);
 		}
@@ -152,14 +148,6 @@ void UI::DrawUI(bool minimapbig)
 
 	if (scene == TITLE) 
 	{		
-		
-		//g_background.Draw(
-		//	0,				// 左上Ｘ座標
-		//	0,				// 左上Ｙ座標
-		//	SCREEN_X,				// 幅
-		//	SCREEN_Y,				// 高さ	
-		//	0.0f,0.0,1.0f,1.0f, //UV
-		//	XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0));		// 頂点カラー
 
 		g_Title.Draw(
 			190,				// 左上Ｘ座標
@@ -184,12 +172,7 @@ void UI::DrawUI(bool minimapbig)
 		else if (CountTitle >= 100) 
 		{
 			CountTitle = 0;
-		}
-
-		
-
-		//DrawPlayerUI();
-		//DrawEnemyUI();		
+		}		
 	}
 
 	if (scene == LOAD) 
@@ -303,37 +286,6 @@ void UI::DrawUI(bool minimapbig)
 			}
 		}
 
-		//if
-		//{
-		//	g_GameClear.Draw(
-		//		190,				// 左上Ｘ座標
-		//		75,				// 左上Ｙ座標
-		//		700,				// 幅
-		//		400,				// 高さ	
-		//		0.0f, 0.0f, 1.0f, 1.0f,//UV
-		//		XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));		// 頂点カラー
-
-		//	if (Player::GetInstance().GetReStart())
-		//	{
-		//		CountTitle++;
-
-		//		if (CountTitle < 50)
-		//		{
-		//			g_click.Draw(
-		//				390,				// 左上Ｘ座標
-		//				560,				// 左上Ｙ座標
-		//				250,				// 幅
-		//				100,				// 高さ	
-		//				0.0f, 0.0f, 1.0f, 1.0f,//UV
-		//				XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));		// 頂点カラー
-		//		}
-		//		else if (CountTitle >= 100)
-		//		{
-		//			CountTitle = 0;
-		//		}
-		//	}
-		//}
-
 		if (minimapbig) {
 			MinimapFrame.Draw(
 				510,				// 左上Ｘ座標
@@ -386,37 +338,6 @@ void UI::DrawUI(bool minimapbig)
 		}		
 
 	}
-
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
-	//ImGui::NewFrame();
-
-	//std::string s;
-	//std::string s2;
-
-	//// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!)
-	//ImGui::Begin(u8"pic");
-
-	//ImGui::Text("X:%.2f Y:%.2f", px, py);
-
-	//ImGui::Text("BOSS HP :%.2f", BossHP);
-	//if (attacking) {
-	//	ImGui::Text("Attacking");
-	//}
-	//else {
-	//	ImGui::Text("Not Attacked");
-	//}
-	//
-	//for (int i = 0; i < 2; i++) 
-	//{
-	//	ImGui::Text("%dHP:%f", i, g_enemy[i].GetEnemyHP());
-	//}
-	//
-	//
-	//ImGui::End();
-
-	// //Rendering
-	//imguidraw();
 
 }
 

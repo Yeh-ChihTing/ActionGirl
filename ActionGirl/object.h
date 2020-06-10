@@ -15,7 +15,6 @@ private:
 	bool LineOn=false;
 	bool ImGuiOn = false;
 	bool OBBOn=false;
-	//void SetQt(XMFLOAT3 angle, XMFLOAT4X4& mat);
 	void HitTurnRed(std::vector<COBB*> a, std::vector<COBB*> b);
 	
 	Object() = default;
@@ -42,9 +41,5 @@ public:
 		return &instance;
 	}
 
-	//CModel GetPlaneModel() const
-	//{
-	//	return g_ground;
-	//}
 
 };

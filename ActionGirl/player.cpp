@@ -13,7 +13,6 @@
 extern bool mouseOnoff;
 extern Enemy g_enemy[ENEMYMAX];
 extern Enemy  Boss;
-//extern CameraMode Cmode;
 extern SCENE scene;
 extern UPorDown UPDOWN;
 extern float CHight;
@@ -34,8 +33,6 @@ bool Player::Init()
 {
 	bool sts;
 
-	/*sts = g_model.Init("assets/girl.x", "shader/vsoneskin.hlsl", "shader/psmira.hlsl",
-		"");*/
 	sts = g_model.InitToon("assets/girl.x", vsfilename, psfilename,"");
 	if (!sts)
 	{
@@ -110,8 +107,8 @@ void Player::LevelUP()
 
 void Player::TitleUpdata() 
 {
-	/*static XMFLOAT3 */angle = { 0.0f,0.0f,0.0f };
-	g_model.Update(animno,			// アニメーション番号
+	angle = { 0.0f,0.0f,0.0f };
+	g_model.Update(animno,			             // アニメーション番号
 		g_mtxplayer, animespeed);				// モデル表示位置と姿勢
 	DX11MakeWorldMatrix(g_mtxplayer, angle, g_PlayerPos, 0.5f);
 	
@@ -133,7 +130,6 @@ void Player::Updata() {
 			g_mtxplayer, animespeed);				// モデル表示位置と姿勢
 	}
 
-	//DX11MakeWorldMatrix(g_mtxplayer, angle, g_PlayerPos, 0.05f);
 	DX11MakeWorldMatrix(g_mtxplayer, angle, g_PlayerPos, 0.3f);
 	DX11MakeWorldMatrix(g_mtxplayerDie, angleCamera, g_PlayerPos, 0.3f);
 
@@ -153,7 +149,6 @@ void Player::Updata() {
 //描画
 void Player::Render(bool Obbon , bool LineOn) {
 	
-	//g_model.Draw(g_mtxplayer,LineOn);
 	g_model.DrawToon(g_mtxplayer, vsfilename, psfilename, LineOn);
 
 	if (Obbon) 
@@ -161,7 +156,6 @@ void Player::Render(bool Obbon , bool LineOn) {
 		g_model.DrawOBB();		
 	}
 
-	//DrawTriangleByNeer();
 }
 
 void Player::RenderInMiniMap()
@@ -816,37 +810,14 @@ void Player::ImGuiRender() {
 
 	ImGui::Text("CH:%.2f", CHight);
 
-	/*ImGui::Text("NeerPoint.X:%.2f", neerpoint.x);
-	ImGui::Text("NeerPoint.Y:%.2f", neerpoint.y);
-	ImGui::Text("NeerPoint.Z:%.2f", neerpoint.z);
+
 
 	ImGui::Text("");
 
-	ImGui::Text("NeerGoal.X:%.2f", goal.x);
-	ImGui::Text("NeerGoal.Y:%.2f", goal.y);
-	ImGui::Text("NeerGoal.Z:%.2f", goal.z);
-*/
-	ImGui::Text("");
 
-	//if (CheckNeedNavi(g_PlayerPos, goal)) {
-	//	
-	//	ImGui::Text("true");
-	//}
-	//else {
-	//	ImGui::Text("false");
-	//}
-	/*int i = Geti(g_PlayerPos);
-	ImGui::Text("%d", i);
-	i = Geti(goal);
-	ImGui::Text("%d", i);*/
-
-	//HitTurnRed(Player::GetInstance().GetPlayerObblist(), g_groundobblist);
-	//HitTurnRed(Player::GetInstance().GetPlayerObblist(), Enemy::GetInstance().GetPlayerObblist());
 	ImGui::Text("angleX%.2f,angleY%.2f,angleZ%.2f", pangle.x,pangle.y,pangle.z);
 
 	ImGui::Text("");
-
-	/*ImGui::Text("PFposX:%.2f  PFposY:%.2f  PFposZ:%.2f", g_pFrontPos.x, g_pFrontPos.y, g_pFrontPos.z);*/
 
 	ImGui::Text("HP:%.2f", PStatus.HP);
 
