@@ -75,11 +75,12 @@ bool Object::Init(bool sts)
 	{
 		g_enemy[i].Init(&EnemyModelLoad.E_modelsave[i]);
 		g_enemy[i].InitEnemyStatus(g_enemypos[i], 100, 20, 50/*,M_wolf*/);
-
+		g_enemy[i].g_enemyobblist = EnemyModelLoad.Obblist[i];
 	}
 
 	Boss.Init(&EnemyModelLoad.E_modelsave[ENEMYMAX]);
 	Boss.InitBossStatus(BossPos, 500, 30, 100);
+	Boss.g_enemyobblist = EnemyModelLoad.Obblist[ENEMYMAX];
 
 	WriteOnConsole("“G‚ğ‰Šú‰»‚µ‚½\n");
 		

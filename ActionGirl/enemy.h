@@ -27,10 +27,13 @@ extern const char* psfilename[];
 
 class EnemyLoad {
 public:
+	
 
 	CModel E_model;
 
 	CModel E_modelsave[ENEMYMAX+1];
+
+	std::vector<COBB*> Obblist[ENEMYMAX + 1];
 
 	void EnemyModelLoad()
 	{
@@ -39,6 +42,7 @@ public:
 		for (int i = 0; i < ENEMYMAX + 1; i++)
 		{
 			E_modelsave[i] = E_model;
+			E_modelsave[i].GetOBBList(Obblist[i]);
 		}
 		// ASSIMPを使用したアニメーションの読み込み
 		//E_model.LoadAnimation("assets/wolf/Wolf.fbx");
@@ -46,7 +50,7 @@ public:
 };
 
 
-class Enemy 
+class Enemy
 {
 private:
 	
@@ -102,12 +106,12 @@ private:
 
 	EnemyAround E_around;
 
-	std::vector<COBB*> g_enemyobblist;
+	
 public:
 
 	Enemy() = default;
 	~Enemy() = default;
-	
+	std::vector<COBB*> g_enemyobblist;
 	ENEMYACTIVE EnemyActive;
 		
 	bool Init(CModel* cmodel);

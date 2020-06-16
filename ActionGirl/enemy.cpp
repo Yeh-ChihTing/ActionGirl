@@ -34,7 +34,7 @@ bool Enemy::Init(CModel* cmodel) {
 	Billboarinit(BossMiniMapPos, 1.5f, 1.5f, 0, 1, 0, 1, "assets/pic/mao.png");
 
 	DX11MtxIdentity(g_mtxenemy);
-	g_modelenemy->GetOBBList(g_enemyobblist);
+	//g_modelenemy->GetOBBList(g_enemyobblist);
 	
 	return true;
 }

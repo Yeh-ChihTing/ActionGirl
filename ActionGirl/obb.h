@@ -41,6 +41,14 @@ public:
 
 	~COBB();
 
+	COBB& operator=(const COBB& co) 
+	{
+		this->m_obbinfo = co.m_obbinfo;
+		this->m_matworld = co.m_matworld;
+		this->m_boxmesh = co.m_boxmesh;
+		return *this;
+	}
+
 	void Init(DatFileLoader* datdata) {
 		CalculateBoundingBox(datdata);	// OBBì¬
 		CreateBoxMesh();				// ƒƒbƒVƒ…ì¬
