@@ -30,16 +30,19 @@ public:
 
 	CModel E_model;
 
+	CModel E_modelsave[ENEMYMAX+1];
+
 	void EnemyModelLoad()
 	{
 		E_model.InitToon("assets/wolf/Wolf.fbx", vsfilename, psfilename, "assets/wolf/textures/");
 	
+		for (int i = 0; i < ENEMYMAX + 1; i++)
+		{
+			E_modelsave[i] = E_model;
+		}
 		// ASSIMPを使用したアニメーションの読み込み
 		//E_model.LoadAnimation("assets/wolf/Wolf.fbx");
 	}
-
-
-
 };
 
 

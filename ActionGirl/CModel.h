@@ -26,6 +26,25 @@ private:
 	unsigned int	m_AnimFileIdx = 0;
 public:
 	
+
+	CModel& operator=(const CModel& c)
+	{
+		this->m_filetype = c.m_filetype;
+		this->m_assimpfile = c.m_assimpfile;
+		this->m_animationcontainer = c.m_animationcontainer;
+		this->m_pVertexShader = c.m_pVertexShader;
+		this->m_pPixelShader = c.m_pPixelShader;
+		this->m_pVertexLayout = c.m_pVertexLayout;
+		this->g_toonsrv = c.g_toonsrv;
+		this->g_shaderhashmap = c.g_shaderhashmap;
+
+		this->g_rasterStateFrontCulling = c.g_rasterStateFrontCulling;
+		this->g_rasterStateBackCulling = c.g_rasterStateBackCulling;
+		this->m_texSRV = c.m_texSRV;
+
+		return *this;
+	};
+
 	void setframe();
 	bool Init(const char* filename,const char* vsfile,const char* psfile, std::string texfolder);
 	bool InitToon(const char* filename, const char* vsfilename[], const char* psfilename[], std::string texfolder);

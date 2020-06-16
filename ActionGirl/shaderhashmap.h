@@ -13,6 +13,14 @@ private:
 	std::unordered_map<std::string,ID3D11PixelShader*> m_pshashmap;
 	std::unordered_map<std::string, ID3D11InputLayout*> m_layouthashmap;
 public:
+
+	ShaderHashmap& operator=(const ShaderHashmap& sh) {
+		this->m_vshashmap = sh.m_vshashmap;
+		this->m_pshashmap = sh.m_pshashmap;
+		this->m_layouthashmap = sh.m_layouthashmap;
+
+		return *this;
+	}
 	bool SetPixelShader(std::string filename) {
 		ID3D11PixelShader* psh;
 		ID3D11Device* device;
